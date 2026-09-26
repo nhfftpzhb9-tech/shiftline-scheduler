@@ -17,6 +17,8 @@ The code is split into four practical areas:
 
 Shift dates and wall-clock times are stored in the venue's time zone. `@js-temporal/polyfill` resolves those local times to instants for durations and overlaps, including daylight-saving changes. Overnight shifts whose end time is earlier than their start time end on the next local date. Shifts with equal start and end times are rejected by the editor. Breaks are not deducted.
 
+The interface is installable from iPhone Safari as a home-screen web app. Next.js serves the web app manifest from `src/app/manifest.ts`; icons and Apple web-app metadata are configured in `src/app/layout.tsx`. The app still requires a network connection for sign-in and synchronized schedule data.
+
 ## Database model
 
 | Table | Purpose |
@@ -89,6 +91,7 @@ The app needs a Node.js runtime and server-side environment variables. Vercel is
 4. Configure `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in the deployment environment.
 5. Deploy the project with `pnpm build` and `pnpm start` (or the host's Next.js integration).
 6. Add the production app URL to Supabase Auth's allowed site and redirect URLs, then verify sign-in on desktop and phone.
+7. Open the HTTPS deployment in iPhone Safari, choose **Share → Add to Home Screen**, enable **Open as Web App**, and tap **Add**.
 
 Supabase Realtime is enabled for the app tables by the schema migration. The client subscribes only while a manager is signed in and refreshes the workspace when a table changes. RLS applies to Realtime events as well as queries.
 
